@@ -1,0 +1,16 @@
+{
+  "name": "mdb-batch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "mongodb": "^6.8.0"
+  }
+}
