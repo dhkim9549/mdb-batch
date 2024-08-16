@@ -10,21 +10,30 @@ async function main() {
   await client.connect();
   console.log('Connected successfully to server');
   const db = client.db(dbName);
-  const collection = db.collection('colTest');
+  const collection = db.collection('colTest6');
 
-  for(let i = 0; i < 1000000; i++) {
+  let arr = new Array();
+
+  for(let i = 0; i < 10000000; i++) {
     const obj = {};
     obj.i = i;
     obj.a = Math.random();
     obj.b = createHash('sha256').update("" + i).digest('base64');
 
-    const insertResult = await collection.insertOne(obj);
+    arr[i] = collection.insertOne(obj);
+
     if(i % 1000 == 0) {
-      console.log(`i = ${i}`);
+      console.log(`${new Date()} i = ${i}`);
       console.log('obj = ' + JSON.stringify(obj));
-      console.log('Inserted documents =>', insertResult);
+    }
+
+    if(i % 10000 == 0) {
+      await Promise.all(arr);
+      arr = [];
     }
   }
+
+  await Promise.all(arr);
 
   return 'done.';
 }
